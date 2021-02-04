@@ -2,15 +2,22 @@ import requests
 import json
 from pprint import pprint
 
-token='1690220485:AAHXCPppQIBAypOyRADaSmp3UHsH2UfOhM4'
-url=f'https://api.telegram.org/bot{token}/getUpdates'
-r=requests.get(url=url)
-data=r.json()
-updates=data["result"]
+def getUpdate():
+    url=f'https://api.telegram.org/bot{token}/getUpdates'
+    r=requests.get(url=url)
+    data=r.json()
+    updates=data["result"]
+    return updates
 
-for update in updates:
+    
+
+token='1690220485:AAHXCPppQIBAypOyRADaSmp3UHsH2UfOhM4'
+
+
+for update in getUpdate():
     message=update["message"]
-    user=message["from"]
-    first=user.get("first_name",'')
-    last=user.get("last_name",'')
-    print(first,last)
+    chat_id=message["chat"]["id"]
+    text=message.get("text","entities")
+    
+
+
