@@ -18,6 +18,6 @@ for update in getUpdate():
     message=update["message"]
     chat_id=message["chat"]["id"]
     text=message.get("text","entities")
-    
+    print(chat_id)
 
 

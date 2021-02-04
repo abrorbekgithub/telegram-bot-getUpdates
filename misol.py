@@ -2,6 +2,7 @@ import requests
 import json
 from pprint import pprint
 
+token='1690220485:AAG4Tu4aA2iZJNq3w1zLD_DDo-c-RljFyQw'
 def getUpdate():
     url=f'https://api.telegram.org/bot{token}/getUpdates'
     res=requests.get(url=url)
@@ -9,17 +10,28 @@ def getUpdate():
     update=data["result"]
     return update
 
-# def sendMessage():
+def getText(text):
+    return text
 
+def sendMessage(idx,text):
+    url=f'https://api.telegram.org/bot{token}/sendMessage'
+    p={
+        "chat_id":idx,
+        "text":text    
+    }
+    r=requests.get(url=url,params=p)
 
-token='1690220485:AAG4Tu4aA2iZJNq3w1zLD_DDo-c-RljFyQw'
 
 length=len(getUpdate())
 length_last=len(getUpdate())
 
-i=0
-# while True:
+while True:
+    idx=getUpdate()[-1]["message"]["chat"]["id"]
+    message=getUpdate()[-1]["message"]["text"]
+    # text=getText(message)
 
-length_last=len(getUpdate())
-print(f'{length}  {length_last}')
+    length_last=len(getUpdate())
+    if length!=length_last:
+        sendMessage(idx=idx,text=message)
+        length=length_last
 
