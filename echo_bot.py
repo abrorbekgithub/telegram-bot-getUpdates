@@ -1,31 +1,40 @@
-
 import requests
 import json
 from pprint import pprint
 
-token='1690220485:AAHXCPppQIBAypOyRADaSmp3UHsH2UfOhM4'
-url1=f'https://api.telegram.org/bot{token}/getUpdates'
-r=requests.get(url=url1)
-data1=r.json()
+token='1690220485:AAG4Tu4aA2iZJNq3w1zLD_DDo-c-RljFyQw'
+def getUpdate():
+    url=f'https://api.telegram.org/bot{token}/getUpdates'
+    res=requests.get(url=url)
+    data=res.json()
+    update=data["result"]
+    return update
+
+def getText(text):
+    return text
+
+def sendMessage(idx,text):
+    url=f'https://api.telegram.org/bot{token}/sendMessage'
+    p={
+        "chat_id":idx,
+        "text":text    
+    }
+    r=requests.get(url=url,params=p)
 
 
-updates=data1["result"]
+length=len(getUpdate())
+length_last=len(getUpdate())
 
+while True:
+    idx=getUpdate()[-1]["message"]["chat"]["id"]
+    message=getUpdate()[-1]["message"]["text"]
+    # text=getText(message)
 
-delivered=100
+    length_last=len(getUpdate())
+    if length!=length_last:
+        sendMessage(idx=idx,text=message)
+        length=length_last
 
-
-while True:    
-    if msg_id>delivered:
-        msg_id=updates[i]["message"]["message_id"]
-        url2=f'https://api.telegram.org/bot{token}/sendMessage'
-        p={
-        "chat_id":[ updates[i]["message"]["chat"]["id"] ],
-        "text":[ updates[i]["message"]["text"] ]
-        }
-        msg_id=updates[i]["message"]["message_id"] 
-        res=requests.get(url=url2,params=p)
-        delivered=msg_id
 
 
  
