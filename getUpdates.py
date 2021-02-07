@@ -11,7 +11,7 @@ def getUpdate():
 
     
 
-token='1690220485:AAG4Tu4aA2iZJNq3w1zLD_DDo-c-RljFyQw'
+token='1690220485:AAFtkQoAYsn2FQ-UqzqRSxWk-WlHitTbWo0'
 
 
 for update in getUpdate():
